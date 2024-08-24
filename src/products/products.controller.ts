@@ -50,7 +50,7 @@ export class ProductsController {
 
     // PUT: ~/api/products/:id
     @Put(":id")
-    public updateProduct(@Param('id') id: string, @Body() body: UpdateProductDto) {
+    public updateProduct(@Param('id', ParseIntPipe) id: string, @Body() body: UpdateProductDto) {
         const product = this.products.find(p => p.id === parseInt(id));
         if (!product) throw new NotFoundException("product not found");
 
@@ -60,7 +60,7 @@ export class ProductsController {
 
     // DELETE: ~/api/products/:id
     @Delete(":id")
-    public deleteProduct(@Param("id") id: string) {
+    public deleteProduct(@Param("id", ParseIntPipe) id: string) {
         const product = this.products.find(p => p.id === parseInt(id));
         if (!product) throw new NotFoundException("product not found");
         return { message: 'product deleted' };
