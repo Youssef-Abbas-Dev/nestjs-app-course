@@ -7,7 +7,7 @@ import {
     NotFoundException,
     Put,
     Delete,
-    ParseIntPipe
+    ParseIntPipe,
 } from "@nestjs/common";
 import { CreateProductDto } from "./dtos/create-product.dto";
 import { UpdateProductDto } from "./dtos/update-product.dto";
@@ -25,6 +25,7 @@ export class ProductsController {
     // POST: ~/api/products
     @Post()
     public createNewProduct(@Body() body: CreateProductDto) {
+        console.log(body);
         const newProduct: ProductType = {
             id: this.products.length + 1,
             title: body.title,
@@ -50,7 +51,9 @@ export class ProductsController {
 
     // PUT: ~/api/products/:id
     @Put(":id")
-    public updateProduct(@Param('id', ParseIntPipe) id: string, @Body() body: UpdateProductDto) {
+    public updateProduct(
+        @Param('id', ParseIntPipe) id: string,
+        @Body() body: UpdateProductDto) {
         const product = this.products.find(p => p.id === parseInt(id));
         if (!product) throw new NotFoundException("product not found");
 
