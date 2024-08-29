@@ -16,8 +16,7 @@ import { ProductsService } from "./products.service";
 
 @Controller("api/products")
 export class ProductsController {
-    // @IMPORTANT NOTE: this considered as bad practice, we will fix it in the next lesson
-    private productsService: ProductsService = new ProductsService();
+    constructor(private readonly productsService: ProductsService) {}
 
     // POST: ~/api/products
     @Post()
