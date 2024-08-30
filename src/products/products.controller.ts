@@ -13,7 +13,6 @@ import { UpdateProductDto } from "./dtos/update-product.dto";
 import { ProductsService } from "./products.service";
 
 
-
 @Controller("api/products")
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) {}

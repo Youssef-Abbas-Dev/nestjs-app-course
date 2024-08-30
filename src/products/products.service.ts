@@ -6,6 +6,7 @@ type ProductType = { id: number, title: string, price: number }
 
 @Injectable()
 export class ProductsService {
+
     private products: ProductType[] = [
         { id: 1, title: 'book', price: 10 },
         { id: 2, title: 'pen', price: 5 },
