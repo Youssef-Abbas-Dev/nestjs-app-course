@@ -37,13 +37,13 @@ export class ProductsController {
 
     // PUT: ~/api/products/:id
     @Put(":id")
-    public updateProduct(@Param('id', ParseIntPipe) id: string, @Body() body: UpdateProductDto) {
+    public updateProduct(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateProductDto) {
         return this.productsService.update(id, body);
     }
 
     // DELETE: ~/api/products/:id
     @Delete(":id")
-    public deleteProduct(@Param("id", ParseIntPipe) id: string) {
+    public deleteProduct(@Param("id", ParseIntPipe) id: number) {
       return this.productsService.delete(id);
     }
 }
