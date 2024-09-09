@@ -1,7 +1,10 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { RegisterDto } from "./dtos/register.dto";
 import { LoginDto } from "./dtos/login.dto";
+import { AuthGuard } from "./guards/auth.guard";
+import { CurrentUser } from "./decorators/current-user.decorator";
+import { JWTPayloadType } from "src/utils/types";
 
 @Controller("api/users")
 export class UsersController {
@@ -20,5 +23,12 @@ export class UsersController {
     @HttpCode(HttpStatus.OK)
     public login(@Body() body: LoginDto) {
         return this.usersService.login(body);
+    }
+
+    // GET: ~/api/users/current-user
+    @Get("current-user")
+    @UseGuards(AuthGuard)
+    public getCurrentUser(@CurrentUser() payload: JWTPayloadType) {
+        return this.usersService.getCurrentUser(payload.id);
     }
 }
