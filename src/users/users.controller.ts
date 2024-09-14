@@ -9,7 +9,7 @@ import {
     ParseIntPipe,
     Post,
     Put,
-    UseGuards
+    UseGuards,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { RegisterDto } from "./dtos/register.dto";
