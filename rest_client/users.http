@@ -1,3 +1,25 @@
+### Register
+POST http://localhost:5000/api/users/auth/register
+Content-Type: application/json 
+
+{
+   "email": "osama@email.com",
+   "password": "123456"
+}
+
+### Login
+POST http://localhost:5000/api/users/auth/login
+Content-Type: application/json 
+
+{
+   "email": "youssef@email.com",
+   "password": "123456"
+}
+
+### Get Current User
+GET http://localhost:5000/api/users/current-user 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjQ4OTM4NywiZXhwIjoxNzI2NTc1Nzg3fQ.Y8W05LHzBn23B-2F5Jf5zRp76HPAmbfIfqLnPQ2Hnaw
+
 ### Get All Users
 GET http://localhost:5000/api/users
 
