@@ -2,25 +2,28 @@
 GET http://localhost:5000/api/products
 
 ### Get Single Product
-GET http://localhost:5000/api/products/1
+GET http://localhost:5000/api/products/3
 
 ### Create New Product
 POST http://localhost:5000/api/products
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjU3MTkxNSwiZXhwIjoxNzI2NjU4MzE1fQ._TUL44JjaLUSPiLS2CUgFzlGTNwFd8jEFT8SMhuohns
 
 {
-    "title": "laptop",
-    "description":"about this laptop",
-    "price": 700
+    "title": "pen",
+    "description":"about this pen",
+    "price": 2
 }
 
 ### Update Product
-PUT http://localhost:5000/api/products/1
+PUT http://localhost:5000/api/products/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTcyNjU3MjkyOCwiZXhwIjoxNzI2NjU5MzI4fQ.mxP3BPsj88tgDITbF33EKQAH3gGLZCrOqyD-XrvZSdY
 
 {
-    "title": "product one updated"
+    "title": "laptop updated"
 }
 
 ### Delete Product
-DELETE  http://localhost:5000/api/products/10
+DELETE  http://localhost:5000/api/products/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjU3Mjk2NCwiZXhwIjoxNzI2NjU5MzY0fQ.4Hf02DNmdAa3AfAvgUAJRds2BR5vvLI26845SfJ6ApE
