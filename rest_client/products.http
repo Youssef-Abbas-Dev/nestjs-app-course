@@ -1,5 +1,5 @@
 ### Get All Products
-GET http://localhost:5000/api/products
+GET http://localhost:5000/api/products?minPrice=80&maxPrice=800&title=laptop
 
 ### Get Single Product
 GET http://localhost:5000/api/products/3
@@ -7,12 +7,12 @@ GET http://localhost:5000/api/products/3
 ### Create New Product
 POST http://localhost:5000/api/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjU3MTkxNSwiZXhwIjoxNzI2NjU4MzE1fQ._TUL44JjaLUSPiLS2CUgFzlGTNwFd8jEFT8SMhuohns
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjY2MjYyOSwiZXhwIjoxNzI2NzQ5MDI5fQ.ZKgMqDCWTuy2LrvGoVOA53JQd2vQIoQ1l2XGqvvGUtA
 
 {
-    "title": "pen",
-    "description":"about this pen",
-    "price": 2
+    "title": "my book in programming",
+    "description":"about programmin",
+    "price": 16
 }
 
 ### Update Product
