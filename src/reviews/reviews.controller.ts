@@ -1,16 +1,28 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, ParseIntPipe, UseGuards } from "@nestjs/common";
 import { ReviewsService } from "./reviews.service";
+import { CurrentUser } from "../users/decorators/current-user.decorator";
+import { Roles } from "../users/decorators/user-role.decorator";
+import { AuthRolesGuard } from "src/users/guards/auth-roles.guard";
+import { CreateReviewDto } from "./dtos/create-review.dto";
+import { JWTPayloadType } from "src/utils/types";
+import { UserType } from "src/utils/enums";
 
-@Controller()
+@Controller('api/reviews')
 export class ReviewsController {
 
     constructor(
         private readonly reviewsService: ReviewsService,
-    ) {}
+    ) { }
 
-    // GET: ~/api/reviews
-    @Get('/api/reviews')
-    public getAllReviews() {
-        return this.reviewsService.getAll();
+    // POST: ~/api/reviews/:productId
+    @Post(':productId')
+    @UseGuards(AuthRolesGuard)
+    @Roles(UserType.ADMIN, UserType.NORMAL_USER)
+    public createNewReview(
+        @Param('productId', ParseIntPipe) productId: number,
+        @Body() body: CreateReviewDto,
+        @CurrentUser() payload: JWTPayloadType
+    ) {
+        return this.reviewsService.createReview(productId, payload.id, body);
     }
 }
