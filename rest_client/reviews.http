@@ -1,2 +1,3 @@
 ### Get All Reviews
-GET http://localhost:5000/api/reviews
+GET http://localhost:5000/api/reviews?pageNumber=1&reviewPerPage=5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNzE3NjkxNCwiZXhwIjoxNzI3MjYzMzE0fQ.KJWfgkWpreueVbRxHyudZq3X-Y2leoJKMfELe94udz4

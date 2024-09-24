@@ -25,5 +25,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5c
 }
 
 ### Delete Product
-DELETE  http://localhost:5000/api/products/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjU3Mjk2NCwiZXhwIjoxNzI2NjU5MzY0fQ.4Hf02DNmdAa3AfAvgUAJRds2BR5vvLI26845SfJ6ApE
+DELETE  http://localhost:5000/api/products/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNzE3OTgwMywiZXhwIjoxNzI3MjY2MjAzfQ.nB5sab2JC8OXJ3_mDzw3hfYSk7PBaHmj6kz1q6GdZLw

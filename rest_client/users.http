@@ -18,8 +18,12 @@ Content-Type: application/json
 
 ### Get Current User
 GET http://localhost:5000/api/users/current-user 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjQ4OTM4NywiZXhwIjoxNzI2NTc1Nzg3fQ.Y8W05LHzBn23B-2F5Jf5zRp76HPAmbfIfqLnPQ2Hnaw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTcyNzE3NzAyMSwiZXhwIjoxNzI3MjYzNDIxfQ.nhZLzhzx546Gobr2ytp4axb_Up2jFgd-NqQ7oph3XAw
 
 ### Get All Users
 GET http://localhost:5000/api/users
+
+### DELETE User
+DELETE http://localhost:5000/api/users/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlclR5cGUiOiJub3JtYWxfdXNlciIsImlhdCI6MTcyNzE3OTE0OSwiZXhwIjoxNzI3MjY1NTQ5fQ.pkp_qUGS4QdX4MNJZtkTC_JsZt-Y6Haoe3RSEWy1mak
 
