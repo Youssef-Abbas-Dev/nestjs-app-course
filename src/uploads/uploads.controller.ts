@@ -1,4 +1,13 @@
-import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors, Res, Get, Param } from "@nestjs/common";
+import {
+    BadRequestException,
+    Controller,
+    Post,
+    UploadedFile,
+    UseInterceptors,
+    Res,
+    Get,
+    Param
+} from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Express, Response } from "express";
 import { diskStorage } from "multer";
@@ -18,7 +27,7 @@ export class UploadsController {
             }
         }),
         fileFilter: (req, file, cb) => {
-            if(file.mimetype.startsWith('image')) {
+            if (file.mimetype.startsWith('image')) {
                 cb(null, true);
             } else {
                 cb(new BadRequestException('Unsupported file format'), false)

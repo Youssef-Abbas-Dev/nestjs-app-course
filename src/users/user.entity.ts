@@ -40,6 +40,9 @@ export class User {
     @UpdateDateColumn({ type: 'timestamp', default: () => CURRENT_TIMESTAMP, onUpdate: CURRENT_TIMESTAMP })
     updatedAt: Date;
 
+    @Column({ nullable: true, default: null })
+    profileImage: string;
+
     @OneToMany(() => Product, (product) => product.user)
     products: Product[];
 
