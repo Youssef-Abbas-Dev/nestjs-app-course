@@ -97,7 +97,7 @@ export class UsersService {
    * @returns the user from the database
    */
   public async setProfileImage(userId: number, newProfileImage: string) {
-    const user = await this.getCurrentUser(userId);;
+    const user = await this.getCurrentUser(userId);
     
     if(user.profileImage === null) {
       user.profileImage = newProfileImage;
