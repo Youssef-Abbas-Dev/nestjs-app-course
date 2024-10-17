@@ -25,4 +25,25 @@ export class MailService {
             throw new RequestTimeoutException();
         }
     }
+
+
+    /**
+     * Sending verify email template
+     * @param email email of the registered user
+     * @param link link with id of the user and verification token
+     */
+    public async sendVerifyEmailTemplate(email: string, link: string) {
+        try {
+            await this.mailerService.sendMail({
+                to: email,
+                from: `<no-reply@my-nestjs-app.com>`,
+                subject: 'Verify your account',
+                template: 'verify-email',
+                context: { link }
+            })
+        } catch (error) {
+            console.log(error);
+            throw new RequestTimeoutException();
+        }
+    }
 }

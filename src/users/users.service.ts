@@ -24,7 +24,7 @@ export class UsersService {
    * @param registerDto data for creating new user
    * @returns JWT (access token)
    */
-  public async register(registerDto: RegisterDto): Promise<AccessTokenType> {
+  public async register(registerDto: RegisterDto) {
     return this.authProvider.register(registerDto);
   }
 
@@ -33,7 +33,7 @@ export class UsersService {
    * @param loginDto data for log in to user account
    * @returns JWT (access token)
    */
-  public async login(loginDto: LoginDto): Promise<AccessTokenType> {
+  public async login(loginDto: LoginDto){
     return this.authProvider.login(loginDto);
   }
 
@@ -124,5 +124,27 @@ export class UsersService {
 
     user.profileImage = null;
     return this.usersRepository.save(user);
+  }
+
+  /**
+   * Verify Email
+   * @param userId id of the user from the link
+   * @param verificationToken verification token from the link
+   * @returns success message
+   */
+  public async verifyEmail(userId: number, verificationToken: string) {
+    const user = await this.getCurrentUser(userId);
+
+    if(user.verificationToken === null)
+      throw new NotFoundException("there is no verification token");
+
+    if(user.verificationToken !== verificationToken)
+      throw new BadRequestException("invalid link");
+
+    user.isAccountVerified = true;
+    user.verificationToken = null;
+
+    await this.usersRepository.save(user);
+    return { message: "Your email has been verified, please log in to your account" };
   }
 }
