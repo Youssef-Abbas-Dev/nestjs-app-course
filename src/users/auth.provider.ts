@@ -6,10 +6,11 @@ import { JwtService } from "@nestjs/jwt";
 import { RegisterDto } from "./dtos/register.dto";
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from "./dtos/login.dto";
-import { JWTPayloadType, AccessTokenType } from "../utils/types";
+import { JWTPayloadType } from "../utils/types";
 import { MailService } from "src/mail/mail.service";
 import { randomBytes } from "node:crypto"
 import { ConfigService } from "@nestjs/config";
+import { ResetPasswordDto } from "./dtos/reset-password.dto";
 
 @Injectable()
 export class AuthProvider {
@@ -63,24 +64,74 @@ export class AuthProvider {
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         if (!isPasswordMatch) throw new BadRequestException("invalid email or password");
 
-        if(!user.isAccountVerified) {
-           let verificationToken = user.verificationToken;
-           
-           if(!verificationToken) {
-            user.verificationToken = randomBytes(32).toString('hex');
-            const result = await this.usersRepository.save(user);
-            verificationToken = result.verificationToken;
-           }
+        if (!user.isAccountVerified) {
+            let verificationToken = user.verificationToken;
 
-           const link = this.generateLink(user.id, verificationToken);
-           await this.mailService.sendVerifyEmailTemplate(email, link);
+            if (!verificationToken) {
+                user.verificationToken = randomBytes(32).toString('hex');
+                const result = await this.usersRepository.save(user);
+                verificationToken = result.verificationToken;
+            }
 
-           return {  message: 'Verification token has been sent to your email, please verify your email address'  };
+            const link = this.generateLink(user.id, verificationToken);
+            await this.mailService.sendVerifyEmailTemplate(email, link);
+
+            return { message: 'Verification token has been sent to your email, please verify your email address' };
         }
 
         const accessToken = await this.generateJWT({ id: user.id, userType: user.userType });
         return { accessToken };
     }
+
+    /**
+     *  Sending reset password link to the client
+     */
+    public async sendResetPasswordLink(email: string) {
+        const user = await this.usersRepository.findOne({ where: { email } });
+        if (!user) throw new BadRequestException("user with given email does not exist");
+
+        user.resetPasswordToken = randomBytes(32).toString('hex');
+        const result = await this.usersRepository.save(user);
+
+        const resetPasswordLink = `${this.config.get<string>("CLIENT_DOMAIN")}/reset-password/${user.id}/${result.resetPasswordToken}`;
+        await this.mailService.sendResetPasswordTemplate(email, resetPasswordLink);
+
+        return { message: "Password reset link sent to your email, please check your inbox" };
+    }
+
+    /**
+     * Get reset password link
+     */
+    public async getResetPasswordLink(userId: number, resetPasswordToken: string) {
+        const user = await this.usersRepository.findOne({ where: { id: userId } });
+        if (!user) throw new BadRequestException("invalid link");
+
+        if (user.resetPasswordToken === null || user.resetPasswordToken !== resetPasswordToken)
+            throw new BadRequestException("invalid link");
+
+        return { message: 'valid link' }
+    }
+
+    /**
+     *  Reset the password
+     */
+    public async resetPassword(dto: ResetPasswordDto) {
+        const { userId, resetPasswordToken, newPassword } = dto;
+
+        const user = await this.usersRepository.findOne({ where: { id: userId } });
+        if (!user) throw new BadRequestException("invalid link");
+
+        if (user.resetPasswordToken === null || user.resetPasswordToken !== resetPasswordToken)
+            throw new BadRequestException("invalid link");
+
+        const hashedPassword = await this.hashPassword(newPassword);
+        user.password = hashedPassword;
+        user.resetPasswordToken = null;
+        await this.usersRepository.save(user);
+
+        return { message: 'password reset successfully, please log in' };
+    }
+
 
     /**
      * Hashing password

@@ -4,12 +4,13 @@ import { Repository } from "typeorm";
 import { User } from "./user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { LoginDto } from "./dtos/login.dto";
-import { JWTPayloadType, AccessTokenType } from "../utils/types";
+import { JWTPayloadType } from "../utils/types";
 import { UpdateUserDto } from "./dtos/update-user.dto";
 import { UserType } from "src/utils/enums";
 import { AuthProvider } from "./auth.provider";
 import { join } from "node:path";
 import { unlinkSync } from 'node:fs';
+import { ResetPasswordDto } from "./dtos/reset-password.dto";
 
 
 @Injectable()
@@ -146,5 +147,33 @@ export class UsersService {
 
     await this.usersRepository.save(user);
     return { message: "Your email has been verified, please log in to your account" };
+  }
+
+  /**
+   * Sending reset password template
+   * @param email email of the user
+   * @returns a success message
+   */
+  public sendResetPassword(email: string) {
+    return this.authProvider.sendResetPasswordLink(email);
+  }
+
+  /**
+   * Get reset password link
+   * @param userId user id from the link
+   * @param resetPasswordToken reset password token from the link
+   * @returns a success message
+   */
+  public getResetPassword(userId:number, resetPasswordToken: string) {
+    return this.authProvider.getResetPasswordLink(userId, resetPasswordToken);
+  }
+
+  /**
+   * Reset the password
+   * @param dto data for reset the password
+   * @returns a success message
+   */
+  public resetPassword(dto: ResetPasswordDto) {
+    return this.authProvider.resetPassword(dto);
   }
 }
