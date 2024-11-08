@@ -22,10 +22,10 @@ export class AuthProvider {
         private readonly config: ConfigService
     ) { }
 
-    /**
+   /**
    * Create new user
    * @param registerDto data for creating new user
-   * @returns JWT (access token)
+   * @returns a success message
    */
     public async register(registerDto: RegisterDto) {
         const { email, password, username } = registerDto;

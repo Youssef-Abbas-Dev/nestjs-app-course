@@ -18,6 +18,7 @@ import { CurrentUser } from "../users/decorators/current-user.decorator";
 import { JWTPayloadType } from '../utils/types';
 import { Roles } from "../users/decorators/user-role.decorator";
 import { UserType } from "src/utils/enums";
+import { ApiQuery, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 
 @Controller("api/products")
@@ -36,6 +37,26 @@ export class ProductsController {
 
     // GET: ~/api/products
     @Get()
+    @ApiResponse({ status: 200, description: 'products fetched successfully' })
+    @ApiOperation({ summary: 'Get a collection of products' })
+    @ApiQuery({
+        name: 'title',
+        required: false,
+        type: 'string',
+        description: 'search based on product title'
+    })
+    @ApiQuery({
+        name: 'minPrice',
+        required: false,
+        type: 'string',
+        description: 'minimum price'
+    })
+    @ApiQuery({
+        name: 'maxPrice',
+        required: false,
+        type: 'string',
+        description: 'maximum price',
+    })
     public getAllProducts(
         @Query('title') title: string,
         @Query('minPrice') minPrice: string,
