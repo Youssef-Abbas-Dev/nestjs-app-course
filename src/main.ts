@@ -22,6 +22,8 @@ async function bootstrap() {
   .setTermsOfService("http://localhost:5000/terms-of-service")
   .setLicense("MIT License", "https://google.com")
   .setVersion("1.0")
+  .addSecurity('bearer', { type: 'http', scheme: 'bearer' })
+  .addBearerAuth()
   .build();
 
 

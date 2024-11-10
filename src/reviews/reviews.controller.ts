@@ -18,8 +18,11 @@ import { CreateReviewDto } from "./dtos/create-review.dto";
 import { JWTPayloadType } from "src/utils/types";
 import { UserType } from "src/utils/enums";
 import { UpdateReviewDto } from "./dtos/update-review.dto";
+import { ApiQuery, ApiSecurity } from "@nestjs/swagger";
+
 
 @Controller('api/reviews')
+@ApiSecurity('bearer')
 export class ReviewsController {
 
     constructor(
@@ -42,6 +45,18 @@ export class ReviewsController {
     @Get()
     @UseGuards(AuthRolesGuard)
     @Roles(UserType.ADMIN)
+    @ApiQuery({
+        name: 'pageNumber',
+        required: false,
+        type: 'string',
+        description: 'page number'
+    })
+    @ApiQuery({
+        name: 'reviewPerPage',
+        required: false,
+        type: 'string',
+        description: 'review per page'
+    })
     public getAllReviews(
         @Query('pageNumber', ParseIntPipe) pageNumber: number,
         @Query('reviewPerPage', ParseIntPipe) reviewPerPage: number,
