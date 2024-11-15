@@ -29,7 +29,8 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { Express, Response } from "express";
 import { ForgotPasswordDto } from "./dtos/forgot-password.dto";
 import { ResetPasswordDto } from "./dtos/reset-password.dto";
-import { ApiSecurity } from "@nestjs/swagger";
+import { ApiSecurity, ApiConsumes, ApiBody } from "@nestjs/swagger";
+import { ImageUploadDto } from "./dtos/image-upload.dto";
 
 @Controller("api/users")
 export class UsersController {
@@ -90,6 +91,8 @@ export class UsersController {
     @UseGuards(AuthGuard)
     @UseInterceptors(FileInterceptor('user-image'))
     @ApiSecurity('bearer')
+    @ApiConsumes("multipart/form-data")
+    @ApiBody({ type: ImageUploadDto, description: 'profile image' })
     public uploadProfileImage(
         @UploadedFile() file: Express.Multer.File,
         @CurrentUser() payload: JWTPayloadType) {
@@ -119,7 +122,7 @@ export class UsersController {
         @Param('id', ParseIntPipe) id: number,
         @Param('verificationToken') verificationToken: string
     ) {
-      return this.usersService.verifyEmail(id, verificationToken);
+        return this.usersService.verifyEmail(id, verificationToken);
     }
 
     // POST: ~/api/users/forgot-password
