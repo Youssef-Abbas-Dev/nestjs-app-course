@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { ReviewsModule } from './reviews/reviews.module';
@@ -10,6 +10,7 @@ import { Review } from './reviews/review.entity';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
+import { LoggerMiddleware } from './utils/middlewares/logger.middleware';
 
 @Module({
     imports: [
@@ -45,4 +46,13 @@ import { MailModule } from './mail/mail.module';
         }
     ]
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(LoggerMiddleware)
+            .forRoutes({
+                path: 'api/products',
+                method: RequestMethod.GET
+            })
+    }
+}
