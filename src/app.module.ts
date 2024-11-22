@@ -50,9 +50,15 @@ export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(LoggerMiddleware)
-            .forRoutes({
+            .exclude({  path: 'api/products', method: RequestMethod.POST })
+            .forRoutes(
+            {
                 path: 'api/products',
-                method: RequestMethod.GET
-            })
+                method: RequestMethod.ALL
+            });
+
+        // consumer
+        //   .apply(helmet())
+        //   .forRoutes({ path: 'api/users', method: RequestMethod.ALL })
     }
 }
