@@ -19,6 +19,7 @@ import { JWTPayloadType } from '../utils/types';
 import { Roles } from "../users/decorators/user-role.decorator";
 import { UserType } from "src/utils/enums";
 import { ApiQuery, ApiOperation, ApiResponse, ApiSecurity } from "@nestjs/swagger";
+import { SkipThrottle, Throttle } from "@nestjs/throttler";
 
 
 @Controller("api/products")
@@ -68,6 +69,7 @@ export class ProductsController {
 
     // GET: ~/api/products/:id
     @Get(":id")
+    @Throttle({default: { limit: 5, ttl: 10000 }})
     public getSingleProduct(@Param("id", ParseIntPipe) id: number) {
         return this.productsService.getOneBy(id);
     }

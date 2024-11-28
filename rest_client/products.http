@@ -2,7 +2,7 @@
 GET http://localhost:5000/api/products?minPrice=80&maxPrice=800&title=laptop
 
 ### Get Single Product
-GET http://localhost:5000/api/products/3
+GET http://localhost:5000/api/products/6
 
 ### Create New Product
 POST http://localhost:5000/api/products
