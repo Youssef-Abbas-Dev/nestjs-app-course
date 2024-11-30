@@ -4,7 +4,7 @@ import { UpdateProductDto } from "./dtos/update-product.dto";
 import { Repository, Like, Between } from "typeorm";
 import { Product } from "./product.entity";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UsersService } from "src/users/users.service";
+import { UsersService } from "../users/users.service";
 
 
 @Injectable()
@@ -13,6 +13,7 @@ export class ProductsService {
     constructor(
         @InjectRepository(Product)
         private readonly productsRepository: Repository<Product>,
+
         private readonly usersService: UsersService
     ) { }
 

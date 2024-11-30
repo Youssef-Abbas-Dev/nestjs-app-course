@@ -8,7 +8,7 @@ import { ConfigService } from "@nestjs/config";
 import { AuthProvider } from "./auth.provider";
 import { MulterModule } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
-import { MailModule } from "src/mail/mail.module";
+import { MailModule } from "../mail/mail.module";
 
 @Module({
     controllers: [UsersController],

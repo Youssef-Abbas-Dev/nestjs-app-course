@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
-import { CURRENT_USER_KEY } from "src/utils/constants";
-import { JWTPayloadType } from "src/utils/types";
+import { CURRENT_USER_KEY } from "../../utils/constants";
+import { JWTPayloadType } from "../../utils/types";
 
 // CurrentUser Parameter Decorator
 export const CurrentUser = createParamDecorator(

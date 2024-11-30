@@ -7,7 +7,7 @@ import { RegisterDto } from "./dtos/register.dto";
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from "./dtos/login.dto";
 import { JWTPayloadType } from "../utils/types";
-import { MailService } from "src/mail/mail.service";
+import { MailService } from "../mail/mail.service";
 import { randomBytes } from "node:crypto"
 import { ConfigService } from "@nestjs/config";
 import { ResetPasswordDto } from "./dtos/reset-password.dto";

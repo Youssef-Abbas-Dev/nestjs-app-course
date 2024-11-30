@@ -3,11 +3,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Review } from "./review.entity";
 import { Repository } from "typeorm";
 import { ProductsService } from "src/products/products.service";
-import { UsersService } from "src/users/users.service";
+import { UsersService } from "../users/users.service";
 import { CreateReviewDto } from "./dtos/create-review.dto";
 import { UpdateReviewDto } from "./dtos/update-review.dto";
-import { JWTPayloadType } from "src/utils/types";
-import { UserType } from "src/utils/enums";
+import { JWTPayloadType } from "../utils/types";
+import { UserType } from "../utils/enums";
 
 @Injectable()
 export class ReviewsService {

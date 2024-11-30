@@ -6,7 +6,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { LoginDto } from "./dtos/login.dto";
 import { JWTPayloadType } from "../utils/types";
 import { UpdateUserDto } from "./dtos/update-user.dto";
-import { UserType } from "src/utils/enums";
+import { UserType } from "../utils/enums";
 import { AuthProvider } from "./auth.provider";
 import { join } from "node:path";
 import { unlinkSync } from 'node:fs';
