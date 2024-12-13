@@ -44,16 +44,16 @@ describe('ProductsService', () => {
                         create: jest.fn((dto: CreateProductDto) => dto),
                         save: jest.fn((dto: CreateProductDto) => Promise.resolve({ ...dto, id: 10 })),
                         find: jest.fn((options?: Options) => {
-                            if(options.where.title) return Promise.resolve([products[0], products[1]]);
+                            if (options.where.title) return Promise.resolve([products[0], products[1]]);
                             return Promise.resolve(products);
                         }),
                         findOne: jest.fn((param: FindOneParam) => Promise.resolve(products.find(p => p.id === param.where.id))),
                         remove: jest.fn((product: Product) => {
                             const index = products.indexOf(product);
-                            if(index !== -1)
+                            if (index !== -1)
                                 return Promise.resolve(products.splice(index, 1));
                         })
-                    } 
+                    }
                 }
             ]
         }).compile();
@@ -93,89 +93,89 @@ describe('ProductsService', () => {
     });
 
     // Get all products
-    describe('getAll()', () => { 
-      it("should call 'find' method in product repository", async () => {
-        await productsService.getAll();
-        expect(productsRepository.find).toHaveBeenCalled();
-        expect(productsRepository.find).toHaveBeenCalledTimes(1);
-      });
+    describe('getAll()', () => {
+        it("should call 'find' method in product repository", async () => {
+            await productsService.getAll();
+            expect(productsRepository.find).toHaveBeenCalled();
+            expect(productsRepository.find).toHaveBeenCalledTimes(1);
+        });
 
-      it("should return 2 products if an argument passed", async () => {
-        const data = await productsService.getAll("book");
-        expect(data).toHaveLength(2);
-      });
+        it("should return 2 products if an argument passed", async () => {
+            const data = await productsService.getAll("book");
+            expect(data).toHaveLength(2);
+        });
 
-      it("should return all products if no argument passed", async () => {
-        const data = await productsService.getAll();
-        expect(data).toHaveLength(4);
-        expect(data).toBe(products);
-      });
+        it("should return all products if no argument passed", async () => {
+            const data = await productsService.getAll();
+            expect(data).toHaveLength(4);
+            expect(data).toBe(products);
+        });
     });
 
     // Get single product by id
-    describe('getOneBy()', () => { 
-      it("should call 'findOne' method in product repository", async () => {
-        await productsService.getOneBy(1);
-        expect(productsRepository.findOne).toHaveBeenCalled();
-        expect(productsRepository.findOne).toHaveReturnedTimes(1);
-      });
+    describe('getOneBy()', () => {
+        it("should call 'findOne' method in product repository", async () => {
+            await productsService.getOneBy(1);
+            expect(productsRepository.findOne).toHaveBeenCalled();
+            expect(productsRepository.findOne).toHaveReturnedTimes(1);
+        });
 
-      it("should return a product with the given id", async () => {
-        const product = await productsService.getOneBy(1);
-        expect(product).toMatchObject(products[0]);
-      });
+        it("should return a product with the given id", async () => {
+            const product = await productsService.getOneBy(1);
+            expect(product).toMatchObject(products[0]);
+        });
 
-      it("should throw NotFoundException if product was not found", async () => {
-        expect.assertions(1);
-        try {
-            await productsService.getOneBy(20);
-        } catch (error) {
-           expect(error).toMatchObject({ message: "product not found" }); 
-        }
-      });
+        it("should throw NotFoundException if product was not found", async () => {
+            expect.assertions(1);
+            try {
+                await productsService.getOneBy(20);
+            } catch (error) {
+                expect(error).toMatchObject({ message: "product not found" });
+            }
+        });
     });
 
     // Update product
-    describe('update()', () => { 
-      const title = "product updated";
+    describe('update()', () => {
+        const title = "product updated";
 
-      it("should call 'save' method in product repository and update the product", async () => {
-        const result = await productsService.update(1, { title });
-        expect(productsRepository.save).toHaveBeenCalled();
-        expect(productsRepository.save).toHaveBeenCalledTimes(1);
-        expect(result.title).toBe(title);
-      });
+        it("should call 'save' method in product repository and update the product", async () => {
+            const result = await productsService.update(1, { title });
+            expect(productsRepository.save).toHaveBeenCalled();
+            expect(productsRepository.save).toHaveBeenCalledTimes(1);
+            expect(result.title).toBe(title);
+        });
 
-      it("should throw NotFoundException if product was not found", async () => {
-        expect.assertions(1);
-        try {
-            await productsService.update(20, { title });
-        } catch (error) {
-           expect(error).toMatchObject({ message: "product not found" }); 
-        }
-      });
+        it("should throw NotFoundException if product was not found", async () => {
+            expect.assertions(1);
+            try {
+                await productsService.update(20, { title });
+            } catch (error) {
+                expect(error).toMatchObject({ message: "product not found" });
+            }
+        });
     });
 
     // Delete product
-    describe('delete()', () => { 
-      it("should call 'remove' method in products repository", async () => {
-        await productsService.delete(1);
-        expect(productsRepository.remove).toHaveBeenCalled();
-        expect(productsRepository.remove).toHaveBeenCalledTimes(1);
-      });
+    describe('delete()', () => {
+        it("should call 'remove' method in products repository", async () => {
+            await productsService.delete(1);
+            expect(productsRepository.remove).toHaveBeenCalled();
+            expect(productsRepository.remove).toHaveBeenCalledTimes(1);
+        });
 
-      it("should remove the product and return the sccess message", async () => {
-        const result = await productsService.delete(1);;
-        expect(result).toMatchObject({ message: 'product deleted successfully' });
-      });
+        it("should remove the product and return the sccess message", async () => {
+            const result = await productsService.delete(1);;
+            expect(result).toMatchObject({ message: 'product deleted successfully' });
+        });
 
-      it("should throw NotFoundException if product was not found", async () => {
-        expect.assertions(1);
-        try {
-            await productsService.delete(20);
-        } catch (error) {
-           expect(error).toMatchObject({ message: "product not found" }); 
-        }
-      });
+        it("should throw NotFoundException if product was not found", async () => {
+            expect.assertions(1);
+            try {
+                await productsService.delete(20);
+            } catch (error) {
+                expect(error).toMatchObject({ message: "product not found" });
+            }
+        });
     })
 })
