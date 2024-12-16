@@ -59,9 +59,9 @@ export class ProductsController {
         description: 'maximum price',
     })
     public getAllProducts(
-        @Query('title') title: string,
-        @Query('minPrice') minPrice: string,
-        @Query('maxPrice') maxPrice: string
+        @Query('title') title?: string,
+        @Query('minPrice') minPrice?: string,
+        @Query('maxPrice') maxPrice?: string
     ) {
         return this.productsService.getAll(title,minPrice,maxPrice)
     }
