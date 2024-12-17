@@ -157,11 +157,11 @@ describe('ProductsController', () => {
     });
 
     // Delete product
-    describe('deleteProduct()', () => { 
-      it("should call 'delete' method in productsService", async () => {
-        await productsController.deleteProduct(2);
-        expect(productsService.delete).toHaveBeenCalled();
-        expect(productsService.delete).toHaveBeenCalledTimes(1)
-      })
+    describe('deleteProduct()', () => {
+        it("should call 'delete' method in productsService", async () => {
+            await productsController.deleteProduct(2);
+            expect(productsService.delete).toHaveBeenCalled();
+            expect(productsService.delete).toHaveBeenCalledTimes(1)
+        });
     });
 });
