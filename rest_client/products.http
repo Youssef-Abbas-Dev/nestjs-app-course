@@ -7,10 +7,10 @@ GET http://localhost:5000/api/products/6
 ### Create New Product
 POST http://localhost:5000/api/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTcyNjY2MjYyOSwiZXhwIjoxNzI2NzQ5MDI5fQ.ZKgMqDCWTuy2LrvGoVOA53JQd2vQIoQ1l2XGqvvGUtA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlclR5cGUiOiJhZG1pbiIsImlhdCI6MTczNTAxODg1NSwiZXhwIjoxNzM1MTA1MjU1fQ.vS6izgQ3Hp9tYHjgi9PM_WQg-Eh5juQ4_S1szmVsSKM
 
 {
-    "title": "my book in programming",
+    "title": "m",
     "description":"about programmin",
     "price": 16
 }
