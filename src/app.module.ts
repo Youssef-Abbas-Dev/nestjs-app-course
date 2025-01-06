@@ -12,6 +12,7 @@ import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
 import { LoggerMiddleware } from './utils/middlewares/logger.middleware';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { dataSourceOptions } from '../db/data-source';
 
 
 @Module({
@@ -21,21 +22,7 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
         ReviewsModule,
         UploadsModule,
         MailModule,
-        TypeOrmModule.forRootAsync({
-            inject: [ConfigService],
-            useFactory: (config: ConfigService) => {
-                return {
-                    type: 'postgres',
-                    database: config.get<string>("DB_DATABASE"),
-                    username: config.get<string>("DB_USERNAME"),
-                    password: config.get<string>("DB_PASSWORD"),
-                    port: config.get<number>("DB_PORT"),
-                    host: 'localhost',
-                    synchronize: process.env.NODE_ENV !== 'production',
-                    entities: [Product, User, Review]
-                }
-            }
-        }),
+        TypeOrmModule.forRoot(dataSourceOptions),
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath: `.env.${process.env.NODE_ENV}`
@@ -89,3 +76,21 @@ export class AppModule implements NestModule {
         //   .forRoutes({ path: 'api/products', method: RequestMethod.ALL })
     }
 }
+
+
+/* LOCAL DATABASE */
+// {
+//     inject: [ConfigService],
+//     useFactory: (config: ConfigService) => {
+//         return {
+//             type: 'postgres',
+//             database: config.get<string>("DB_DATABASE"),
+//             username: config.get<string>("DB_USERNAME"),
+//             password: config.get<string>("DB_PASSWORD"),
+//             port: config.get<number>("DB_PORT"),
+//             host: 'localhost',
+//             synchronize: process.env.NODE_ENV !== 'production',
+//             entities: [Product, User, Review]
+//         }
+//     }
+// }

@@ -5,7 +5,6 @@ import * as request from 'supertest';
 import { AppModule } from "../src/app.module";
 import { Product } from "../src/products/product.entity";
 import { User } from "../src/users/user.entity";
-import { CreateProductDto } from "../src/products/dtos/create-product.dto";
 import { UserType } from "../src/utils/enums";
 import * as bcrypt from 'bcryptjs';
 import { CreateReviewDto } from "../src/reviews/dtos/create-review.dto";
