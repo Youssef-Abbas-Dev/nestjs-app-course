@@ -5,7 +5,7 @@ import { Review } from "../src/reviews/review.entity";
 import { config } from "dotenv";
 
 // dotenv config
-config({ path: '.env' })
+config({ path: '.env' });
 
 // data source options
 export const dataSourceOptions: DataSourceOptions = {

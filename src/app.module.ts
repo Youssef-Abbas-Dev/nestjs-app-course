@@ -13,9 +13,11 @@ import { MailModule } from './mail/mail.module';
 import { LoggerMiddleware } from './utils/middlewares/logger.middleware';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { dataSourceOptions } from '../db/data-source';
+import { AppController } from './app.controller';
 
 
 @Module({
+    controllers: [AppController],
     imports: [
         ProductsModule,
         UsersModule,
@@ -25,7 +27,7 @@ import { dataSourceOptions } from '../db/data-source';
         TypeOrmModule.forRoot(dataSourceOptions),
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: `.env.${process.env.NODE_ENV}`
+            envFilePath: process.env.NODE_ENV !== 'production' ? `.env.${process.env.NODE_ENV}` : ".env"
         }),
         ThrottlerModule.forRoot([
             {
