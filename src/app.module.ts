@@ -9,7 +9,7 @@ import { UploadsModule } from './uploads/uploads.module';
 import { MailModule } from './mail/mail.module';
 import { LoggerMiddleware } from './utils/middlewares/logger.middleware';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-import { dataSourceOptions } from '../db/data-source';
+import { dataSourceOptions as options } from '../db/data-source';
 import { AppController } from './app.controller';
 
 
@@ -21,7 +21,7 @@ import { AppController } from './app.controller';
         ReviewsModule,
         UploadsModule,
         MailModule,
-        TypeOrmModule.forRoot(dataSourceOptions),
+        TypeOrmModule.forRoot(options),
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath: process.env.NODE_ENV !== 'production' ? `.env.${process.env.NODE_ENV}` : ".env"
